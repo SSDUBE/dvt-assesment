@@ -2,6 +2,24 @@ import { Config } from '../utils/Config';
 import { SecureService } from './SecureService';
 
 export class ArtistService extends SecureService {
+  public findArtist = async (artistId: string) => {
+    try {
+      const response = await fetch(
+        Config.services.artist.searchArtist.replace(':artistId', artistId),
+        {
+          method: 'GET',
+          headers: {
+            ...this.defaultHeaders,
+          },
+        }
+      );
+
+      return response.json();
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  };
+
   public searchArtistByName = async (artistName: string) => {
     try {
       const response = await fetch(

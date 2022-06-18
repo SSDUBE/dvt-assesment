@@ -59,45 +59,5 @@ export const RouteItems: IRouteItems = {
         name: 'ArtistMoreInformation',
       },
     ],
-  },
-  // restricted: {
-  //   base: {
-  //     path: '/',
-  //     Component: (
-  //       <AppDrawer>
-  //         <Outlet />
-  //       </AppDrawer>
-  //     ),
-  //   },
-  //   routes: [
-  //     {
-  //       paths: ['/dashboard', '/'],
-  //       Component: Dashboard,
-  //       Icon: SpeedIcon,
-  //       name: 'Dashboard',
-  //       roles: ['ADMIN', 'PRINCIPAL', 'TEACHER']
-  //     },
-  //     {
-  //       paths: ['/user-management'],
-  //       Component: UserManagement,
-  //       Icon: PeopleAltIcon,
-  //       name: 'User Management',
-  //       roles: ['ADMIN', 'PRINCIPAL', 'TEACHER']
-  //     },
-  //     {
-  //       paths: ['/school-management'],
-  //       Component: SchoolManagement,
-  //       Icon: HistoryEduIcon,
-  //       name: 'School Management',
-  //       roles: ['ADMIN']
-  //     },
-  //     {
-  //       paths: ['/update-profile'],
-  //       Component: UpdateProfile,
-  //       Icon: AccountCircleIcon,
-  //       name: 'Update Profile',
-  //       roles: ['ADMIN', 'PRINCIPAL', 'TEACHER']
-  //     },
-  //   ],
-  // },
+  }
 };

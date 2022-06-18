@@ -7,7 +7,8 @@ export const Config = {
   services: {
     artist: {
       search: `${domain}/search?q=:searchParam`,
-      searchAlbum: `${domain}/album/:albumId`
+      searchAlbum: `${domain}/album/:albumId`,
+      searchArtist: `${domain}/artist/:artistId`
     }
   }
 }

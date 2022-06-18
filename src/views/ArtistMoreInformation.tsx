@@ -41,15 +41,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     marginTop: theme.spacing(15),
   },
+  fans: {
+    padding: theme.spacing(3),
+  },
 }));
 
-interface IArtistMoreInformation {
-  props: any;
-}
-
-const ArtistMoreInformation: FunctionComponent<IArtistMoreInformation> = (
-  props
-) => {
+const ArtistMoreInformation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -72,8 +69,6 @@ const ArtistMoreInformation: FunctionComponent<IArtistMoreInformation> = (
     })();
   }, []);
 
-  // @ts-ignore
-  // console.log('props ', );
   return (
     <Box className={classes.conatiner}>
       <Box className={classes.headerContainer}>
@@ -86,7 +81,12 @@ const ArtistMoreInformation: FunctionComponent<IArtistMoreInformation> = (
         </Box>
       </Box>
 
-      <Typography>{`Total Fans: ${artistAlbum.fans}`}</Typography>
+      {artistAlbum && (
+        <Typography
+          variant='h4'
+          className={classes.fans}
+        >{`Total Fans: ${artistAlbum.fans}`}</Typography>
+      )}
 
       {loading ? (
         <Box className={classes.loaderContainer}>
@@ -96,38 +96,38 @@ const ArtistMoreInformation: FunctionComponent<IArtistMoreInformation> = (
           </Typography>
         </Box>
       ) : (
-        <Box className={classes.gridContainer}>
-          <Grid container spacing={2}>
-            {artistAlbum &&
-              [...Array(5)].map((_, idx: any) => {
-                const item = artistAlbum.tracks.data[idx];
+        <>
+          <Typography variant='h4' className={classes.fans}>
+            Top 5 Albums
+          </Typography>
+          <Box className={classes.gridContainer}>
+            <Grid container spacing={2}>
+              {artistAlbum &&
+                [...Array(5)].map((_, idx: any) => {
+                  const item = artistAlbum.tracks.data[idx];
 
-                if (!item) {
-                  return;
-                }
+                  if (!item) {
+                    return;
+                  }
 
-                // console.log('res ', artistAlbum);
+                  const minutes = (Math.round((item.duration / 60) * 100) / 100)
+                    .toString()
+                    .split('.');
 
-                const minutes = (Math.round((item.duration / 60) * 100) / 100)
-                  .toString()
-                  .split('.');
-
-                return (
-                  <Grid item xs={12} sm={4} md={4} lg={2} key={idx}>
-                    <ArtistCard
-                      // @ts-ignore
-                      header={item.artist.name}
-                      // @ts-ignore
-                      imageUrl={artistAlbum.cover_xl}
-                      // album={item.album}
-                      subHeader1={`title: ${item.album.title}`}
-                      subHeader2={`duration: 0${minutes[0]}:${minutes[1]}`}
-                    />
-                  </Grid>
-                );
-              })}
-          </Grid>
-        </Box>
+                  return (
+                    <Grid item xs={12} sm={4} md={4} lg={2} key={idx}>
+                      <ArtistCard
+                        header={item.artist.name}
+                        imageUrl={artistAlbum.cover_xl}
+                        subHeader1={`title: ${item.album.title}`}
+                        subHeader2={`duration: 0${minutes[0]}:${minutes[1]}`}
+                      />
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          </Box>
+        </>
       )}
     </Box>
   );

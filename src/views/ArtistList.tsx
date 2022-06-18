@@ -42,10 +42,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     marginTop: theme.spacing(15),
   },
+  content: {
+    padding: theme.spacing(3),
+    textAlign: 'center',
+  },
 }));
 
+interface IArtistDetails {
+  album: IAlbum;
+  artist: IArtist;
+}
 interface IArtistAllDetails {
-  data: [IAlbum, IArtist, IArtistMoreInfor];
+  data: IArtistDetails[];
   next: string;
   total: number;
 }
@@ -55,6 +63,7 @@ const ArtistList = () => {
   const navigate = useNavigate();
   const [artist, setArtist] = React.useState<IArtistAllDetails | null>(null);
   const [loading, setIsLoading] = React.useState(false);
+  const [art, setArt] = React.useState<any>(null);
 
   function handlePress(albumId: number, imageUri: string) {
     return navigate('/artist-more-information', {
@@ -66,11 +75,18 @@ const ArtistList = () => {
     try {
       setIsLoading(true);
       const service = new ArtistService();
+      const promise: any = [];
       const res = await service.searchArtistByName(val);
 
+      res.data.forEach((art: IArtist) => {
+        promise.push(service.findArtist(art.id.toString()));
+      });
+
+      const artRes = await Promise.all(promise);
       if (res.data) {
         setIsLoading(false);
         setArtist(res);
+        setArt(artRes);
       }
     } catch (e) {
       alert('Oops!!! Failed to get artist');
@@ -88,6 +104,11 @@ const ArtistList = () => {
         </Box>
       </Box>
 
+      {!loading && !artist && (
+        <Typography variant='h4' className={classes.content}>
+          No artist found!!!
+        </Typography>
+      )}
       {!loading ? (
         <Box className={classes.gridContainer}>
           <Grid container spacing={2}>
@@ -96,15 +117,13 @@ const ArtistList = () => {
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={2} key={idx}>
                     <ArtistCard
-                      // @ts-ignore
                       header={item.artist.name}
-                      // @ts-ignore
                       imageUrl={item.artist.picture_xl}
-                      // @ts-ignore
-                      handlePress={() => handlePress(item.album.id, item.artist.picture_xl)}
-                      // album={item.album}
-                      subHeader1={`${artist.total}  Followers`}
-                      subHeader2={`${artist?.data.length} Albums`}
+                      handlePress={() =>
+                        handlePress(item.album.id, item.artist.picture_xl)
+                      }
+                      subHeader1={`${art[idx].nb_fan || 'N/A'}  Followers`}
+                      subHeader2={`${art[idx].nb_album || 'N/A'} Albums`}
                     />
                   </Grid>
                 );

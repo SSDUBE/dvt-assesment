@@ -21,56 +21,28 @@ const baseTheme = createTheme({
           border: '1px #EEEEEE solid',
         }
       }
-    }
-    // MuiFormHelperText: {
-    //   styleOverrides: {
-    //     root: {
-    //       marginLeft: 0,
-    //     },
-    //   },
-    // },
-    // MuiListItemText: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#fff',
-    //     },
-    //   },
-    // },
-    // MuiButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       background: '#EC8144',
-    //       width: '100%',
-    //       color: '#fff',
-    //       borderRadius: 50,
-    //       height: 50,
-    //       ':hover': {
-    //         background: '#EC8144',
-    //       },
-    //     },
-    //   },
-    // },
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     root: {
-    //       fontFamily: 'Poppins',
-    //     },
-    //   },
-    //   defaultProps: {
-    //     variantMapping: {
-    //       h1: 'h2',
-    //       h2: 'h2',
-    //       h3: 'h2',
-    //       h4: 'h2',
-    //       h5: 'h2',
-    //       h6: 'h2',
-    //       subtitle1: 'h2',
-    //       subtitle2: 'h2',
-    //       body1: 'span',
-    //       body2: 'span',
-    //     },
-    //   },
-    // },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Poppins',
+        },
+      },
+      defaultProps: {
+        variantMapping: {
+          h1: 'h2',
+          h2: 'h2',
+          h3: 'h2',
+          h4: 'h2',
+          h5: 'h2',
+          h6: 'h2',
+          subtitle1: 'h2',
+          subtitle2: 'h2',
+          body1: 'span',
+          body2: 'span',
+        },
+      },
+    },
   },
 });
 
